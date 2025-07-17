@@ -1,0 +1,13 @@
+package com.mazedemo.mazeDemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MazeDemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MazeDemoApplication.class, args);
+	}
+
+}
