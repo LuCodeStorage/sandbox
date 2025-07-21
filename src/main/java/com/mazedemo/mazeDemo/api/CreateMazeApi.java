@@ -7,7 +7,7 @@ import com.mazedemo.mazeDemo.service.MazeService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/mazes/create")
+@RequestMapping("/mazes")
 public class CreateMazeApi {
 
     private final MazeService mazeService;

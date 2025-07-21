@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/mazes/update")
+@RequestMapping("/mazes")
 public class UpdateMazeApi {
     private final MazeService mazeService;
 

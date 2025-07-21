@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/mazes/delete")
+@RequestMapping("/mazes")
 public class DeleteMazeApi {
     private final MazeService mazeService;
 
