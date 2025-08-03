@@ -14,15 +14,14 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - type: object
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                        example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
-                type: array
-                items:
-                  $ref: "#/components/schemas/maze"
+                  - type: array
+                    items:
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+                      $ref: "#/components/schemas/maze"
     post:
       tags:
         - create
