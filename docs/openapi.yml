@@ -13,15 +13,9 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: array
-                    items:
-                      properties:
-                        id:
-                          type: string
-                          format: uuid
-                          example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
-                      $ref: "#/components/schemas/maze"
+                type: array
+                items:
+                  $ref: "#/components/schemas/getMaze"
     post:
       tags:
         - create
