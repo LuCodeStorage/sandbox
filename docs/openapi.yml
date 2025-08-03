@@ -15,7 +15,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/maze"
+                  $ref: "#/components/schemas/getMaze"
     post:
       tags:
         - create
@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/maze"
+                $ref: "#/components/schemas/getMaze"
 
 
 components:
