@@ -70,8 +70,9 @@ components:
     getMaze:
       allOf:
         - $ref: "#/components/schemas/maze"
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
