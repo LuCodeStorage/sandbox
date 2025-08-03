@@ -67,3 +67,10 @@ components:
         - title
         - level
         - status
+    getMaze:
+      $ref: "#/components/schemas/maze"
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
