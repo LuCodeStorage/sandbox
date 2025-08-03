@@ -68,7 +68,8 @@ components:
         - level
         - status
     getMaze:
-      $ref: "#/components/schemas/maze"
+      allOf:
+        - $ref: "#/components/schemas/maze"
       properties:
         id:
           type: string
