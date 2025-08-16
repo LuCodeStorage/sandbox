@@ -1,0 +1,167 @@
+openapi: 3.0.1
+info:
+  title: Springdoc-openapi mazeDemo sample
+  description: Springdoc-openapiを利用したAPIdocument作成サンプル
+  version: v1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: MazeCreate
+  description: CRUD API MAZE CREATE
+paths:
+  /mazes/{id}:
+    get:
+      tags:
+      - refer-maze-api
+      operationId: get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MazeEntity"
+    put:
+      tags:
+      - update-maze-api
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateMazeRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+      - delete-maze-api
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+  /mazes:
+    get:
+      tags:
+      - refer-maze-api
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MazeEntity"
+    post:
+      tags:
+      - MazeCreate
+      summary: 迷路作成
+      description: 迷路のパラメータを受け取り、迷路情報を登録する
+      operationId: create
+      requestBody:
+        description: Create Maze DATA
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMazeRequest"
+        required: true
+      responses:
+        "405":
+          description: 入力チェックエラー
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MazeEntity"
+        "200":
+          description: 成功
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MazeEntity"
+components:
+  schemas:
+    UpdateMazeRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        level:
+          type: integer
+          format: int32
+        status:
+          type: string
+          enum:
+          - DRAFT
+          - PUBLISHED
+          - PRIVATE
+    CreateMazeRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        level:
+          type: integer
+          format: int32
+        status:
+          type: string
+          enum:
+          - DRAFT
+          - PUBLISHED
+          - PRIVATE
+    MazeEntity:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/MazeId"
+        title:
+          $ref: "#/components/schemas/MazeTitle"
+        level:
+          $ref: "#/components/schemas/MazeLevel"
+        status:
+          type: string
+          enum:
+          - DRAFT
+          - PUBLISHED
+          - PRIVATE
+    MazeId:
+      type: object
+      properties:
+        value:
+          type: string
+          format: uuid
+    MazeLevel:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
+    MazeTitle:
+      type: object
+      properties:
+        value:
+          type: string
