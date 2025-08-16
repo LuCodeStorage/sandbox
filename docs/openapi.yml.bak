@@ -68,11 +68,26 @@ components:
         - level
         - status
     getMaze:
-      allOf:
-        - $ref: "#/components/schemas/maze"
-        - type: object
-          properties:
-            id:
-              type: string
-              format: uuid
-              example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+          title:
+            type: string
+            example: 迷路1
+          level:
+            type: integer
+            example: 0
+          status:
+            type: string
+            enum:
+              - DRAFT
+              - PUBLISHED
+              - PRIVATE
+        required:
+          - id
+          - title
+          - level
+          - status
