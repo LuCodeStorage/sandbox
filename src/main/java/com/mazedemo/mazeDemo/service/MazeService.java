@@ -1,4 +1,4 @@
-package com.mazedemo.mazeDemo.service2;
+package com.mazedemo.mazeDemo.service;
 
 import com.mazedemo.mazeDemo.domain.MazeEntity;
 import com.mazedemo.mazeDemo.domain.valueObject.MazeId;

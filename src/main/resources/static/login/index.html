@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JWT 認証サンプル</title>
+</head>
+<body>
+<h2>ユーザー登録 & ログイン</h2>
+
+<div>
+  <label>名字: <input id="firstname" type="text"></label><br>
+  <label>名前: <input id="lastname" type="text"></label><br>
+  <label>email: <input id="email" type="text"></label><br>
+  <label>パスワード: <input id="password" type="password"></label><br><br>
+
+  <button onclick="register()">登録</button>
+  <button onclick="login()">ログイン</button>
+</div>
+
+<h3>メッセージ</h3>
+<pre id="message"></pre>
+
+<h3>保護されたAPI呼び出し</h3>
+<button onclick="getProtectedMazeReg()">JWT付き登録リクエスト</button>
+<pre id="protected"></pre>
+
+<script>
+  const apiBase = "http://localhost:8080/api/v1/auth";
+
+  async function register() {
+    const firstname = document.getElementById("firstname").value;
+    const lastname = document.getElementById("lastname").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch(apiBase + "/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstname, lastname, email, password })
+    });
+    const data = await res.json();
+    document.getElementById("message").innerText = JSON.stringify(data, null, 2);
+  }
+
+  async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch(apiBase + "/authenticate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("token", data.accessToken);
+      document.getElementById("message").innerText = "ログイン成功！JWTを保存しました。\n" + data.accessToken;
+    } else {
+      document.getElementById("message").innerText = "ログイン失敗: " + (data.error || "");
+    }
+  }
+
+  async function getProtectedMazeReg() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      document.getElementById("protected").innerText = "先にログインしてください。";
+      return;
+    }
+
+    const title = "test";
+    const level = 1;
+    const status = "DRAFT";
+
+    const res = await fetch("http://localhost:8080/mazes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({ title, level, status })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      document.getElementById("protected").innerText = JSON.stringify(data, null, 2);
+    } else {
+      document.getElementById("protected").innerText = "認証失敗 or エラー: " + res.status;
+    }
+  }
+</script>
+</body>
+</html>

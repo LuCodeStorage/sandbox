@@ -2,7 +2,7 @@ package com.mazedemo.mazeDemo.api;
 
 import com.mazedemo.mazeDemo.domain.MazeEntity;
 import com.mazedemo.mazeDemo.domain.valueObject.MazeStatus;
-import com.mazedemo.mazeDemo.service2.MazeService;
+import com.mazedemo.mazeDemo.service.MazeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

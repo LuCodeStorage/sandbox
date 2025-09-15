@@ -48,16 +48,29 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        // Java 21のTextBlock機能を使用して、URL許可リストを定義
+//        String[] publicUrls = """
+//                        /api/v1/auth/**
+//                        /v3/api-docs/**
+//                        /swagger-ui/**
+//                        /swagger-ui.html
+//                        /swagger-resources/**
+//                        /actuator/**
+//                        """.trim().split("\\s+");
+
         // Java 21のTextBlock機能を使用して、URL許可リストを定義
         String[] publicUrls = """
+                        /login/*
                         /api/v1/auth/**
                         /v3/api-docs/**
                         /swagger-ui/**
                         /swagger-ui.html
                         /swagger-resources/**
                         /actuator/**
+                        /h2-console/**
                         """.trim().split("\\s+");
-        System.out.println(publicUrls[1]);
+
+        http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -69,6 +82,35 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .build();
+
+//        return http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .formLogin(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/api/v1/auth/**").permitAll()
+//                        .requestMatchers("/v3/api-docs/**").permitAll()
+//                        .requestMatchers("/swagger-ui/**").permitAll()
+//                        .requestMatchers("/swagger-ui.html").permitAll()
+//                        .requestMatchers("/swagger-resources/**").permitAll()
+//                        .requestMatchers("/swagger-resources/**").permitAll()
+////                        .requestMatchers("/mazes/").permitAll()
+////                        .requestMatchers("/mazes/**").permitAll()
+////                        .requestMatchers(publicUrls).permitAll()
+//                        .anyRequest().authenticated()
+//                .sessionManagement(session -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .oauth2ResourceServer(oauth2 -> oauth2
+//                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
+//                .build();
+
+//        http.authorizeHttpRequests(authorize ->
+//                authorize.anyRequest().permitAll());
+//            http.formLogin (AbstractHttpConfigurer::disable);
+//            http.httpBasic(AbstractHttpConfigurer::disable); // HTTP Basic認証を無効化
+//            http.csrf (AbstractHttpConfigurer::disable);// CSRF保護を無効化
+//            http.cors (AbstractHttpConfigurer::disable) ;// CORS設定を無効化
+
+//        return http.build();
     }
 
     /**

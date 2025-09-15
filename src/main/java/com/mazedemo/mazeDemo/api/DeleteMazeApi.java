@@ -1,7 +1,7 @@
 package com.mazedemo.mazeDemo.api;
 
 import com.mazedemo.mazeDemo.domain.valueObject.MazeId;
-import com.mazedemo.mazeDemo.service2.MazeService;
+import com.mazedemo.mazeDemo.service.MazeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
